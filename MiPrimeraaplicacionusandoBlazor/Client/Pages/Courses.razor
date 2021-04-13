@@ -1,0 +1,14 @@
+﻿<h3>Courses</h3>
+
+<ul>
+
+    @foreach (var item in courses)
+    {
+        <li>@item</li>
+    }
+</ul>
+
+@code {
+    [Parameter]
+    public string[] courses { get; set; } = { "C Sharp", "Visual Basic" };
+}
