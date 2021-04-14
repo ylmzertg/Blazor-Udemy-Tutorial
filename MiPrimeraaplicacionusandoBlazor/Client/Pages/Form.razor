@@ -11,15 +11,30 @@
     <input type="tel" @bind="number2" class="form-control" />
 </div>
 
-<button class="btn btn-primary">Add</button>
-<button class="btn btn-primary">Remove</button>
-<button class="btn btn-primary">Multiply</button>
+<button class="btn btn-primary" @onclick="add">Add</button>
+<button class="btn btn-primary" @onclick="remove">Remove</button>
+<button class="btn btn-primary" @onclick="multiply">Multiply</button>
 
 <p>Result: @result</p>
 
 @code {
 
-    private int number1 { get; set; }=0;
+    private int number1 { get; set; } = 0;
     private int number2 { get; set; } = 0;
     private int result { get; set; } = 0;
+
+    public void add()
+    {
+        result = number1 + number2;
+    }
+
+    public void remove()
+    {
+        result = number1 - number2;
+    }
+
+    public void multiply()
+    {
+        result = number1 * number2;
+    }
 }
