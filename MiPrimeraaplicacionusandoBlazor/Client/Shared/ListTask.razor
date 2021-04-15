@@ -1,0 +1,38 @@
+﻿
+@using MiPrimeraaplicacionusandoBlazor.Shared
+
+<table class="table">
+<thead>
+    <tr>
+        <th>
+            day of week
+        </th>
+        <th>
+            Task
+        </th>
+        <th>
+            done or not
+        </th>
+        <th>
+            Tarih
+        </th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in listTask)
+    {
+    <tr>
+        <td>@item.DayOfWeek</td>
+        <td>@item.Task</td>
+        <td>@item.Perform</td>
+        <td>@item.TaskDate</td>
+    </tr>
+    }
+</tbody>
+</table>
+
+@code {
+
+    [Parameter]
+    public List<TaskCLS> listTask{ get; set; }
+}

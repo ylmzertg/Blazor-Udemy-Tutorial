@@ -1,0 +1,59 @@
+﻿@page "/formList"
+@using MiPrimeraaplicacionusandoBlazor.Shared
+
+<form @onsubmit="register">
+    <div class="form-group">
+        <label>Select Day of week</label>
+        <select class="form-control" @bind="cboWeek">
+            <option value="">-- Select Day--</option>
+            <option value="Monday">Monday</option>
+            <option value="Thuesday">Thuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Enter Task</label>
+        <input type="text" class="form-control" required @bind="txtarea" />
+    </div>
+
+    <div>
+        <label>Task done or not</label>
+        <input type="checkbox" @bind="chkPerform" />
+    </div>
+
+    <div>
+        <label>Task Date</label>
+        <input type="date" @bind="taskDate" @bind:format="yyyy-MM-dd" />
+    </div>
+
+    <input type="submit" value="Register" class="btn btn-primary" />
+</form>
+
+<ListTask listTask="listTask" />
+
+
+
+@code {
+    public List<TaskCLS> listTask = new List<TaskCLS>();
+    public string cboWeek;
+
+    public string txtarea;
+    public bool chkPerform;
+    public DateTime taskDate = DateTime.Now;
+
+    public void register()
+    {
+        listTask.Add(new TaskCLS
+        {
+            DayOfWeek = cboWeek,
+            Task = txtarea,
+            Perform = chkPerform,
+            TaskDate = taskDate
+        });
+    }
+}
