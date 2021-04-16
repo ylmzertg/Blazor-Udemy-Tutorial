@@ -7,7 +7,11 @@
     string[] titleList = { "Book Type Id", "Book Type Name", "Description" };
 }
 
-<ListRazor titles="titleList" list="bookTypeList"/>
+<ListRazor titles="titleList" 
+           list="bookTypeList"
+           type="text"
+           label="Enter Book Type"
+           eventQueue="SearchBookType"/>
 
 @code {
 
@@ -18,4 +22,9 @@
         bookTypeList = await http.GetFromJsonAsync<BookTypeCLS[]>("api/BookType/GetBookTypeList");
     }
 
+    public async Task SearchBookType(string data)
+    {
+        bookTypeList = await http.GetFromJsonAsync<BookTypeCLS[]>("api/BookType/Filter/"+ data);
+
+    }
 }

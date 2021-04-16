@@ -21,14 +21,49 @@ namespace MiPrimeraaplicacionusandoBlazor.Server.Controllers
             List<BookTypeCLS> bookList = new List<BookTypeCLS>();
             using (BlazorLibraryDBContext db = new BlazorLibraryDBContext())
             {
+
                 bookList = (from bookType in db.BookTypes
-                           where bookType.Active == 1
-                           select new BookTypeCLS
-                           {
-                               Id = bookType.Id,
-                               BookTypeName = bookType.BookTypeName,
-                               Description = bookType.Description
-                           }).ToList();
+                            where bookType.Active == 1
+                            select new BookTypeCLS
+                            {
+                                Id = bookType.Id,
+                                BookTypeName = bookType.BookTypeName,
+                                Description = bookType.Description
+                            }).ToList();
+            }
+            return bookList;
+        }
+
+        [HttpGet("Filter/{data?}")]
+        public List<BookTypeCLS> Filter(string data)
+        {
+            List<BookTypeCLS> bookList = new List<BookTypeCLS>();
+            using (BlazorLibraryDBContext db = new BlazorLibraryDBContext())
+            {
+                if (data == null)
+                {
+                    bookList = (from bookType in db.BookTypes
+                                where bookType.Active == 1
+                                select new BookTypeCLS
+                                {
+                                    Id = bookType.Id,
+                                    BookTypeName = bookType.BookTypeName,
+                                    Description = bookType.Description
+                                }).ToList();
+                }
+                else
+                {
+                    bookList = (from bookType in db.BookTypes
+                                where
+                                bookType.Active == 1
+                                && bookType.BookTypeName.Contains(data)
+                                select new BookTypeCLS
+                                {
+                                    Id = bookType.Id,
+                                    BookTypeName = bookType.BookTypeName,
+                                    Description = bookType.Description
+                                }).ToList();
+                }
             }
             return bookList;
         }
