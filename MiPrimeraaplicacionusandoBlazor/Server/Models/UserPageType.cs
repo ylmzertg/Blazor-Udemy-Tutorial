@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 namespace MiPrimeraaplicacionusandoBlazor.Server.Models
 {
-    public partial class Button
+    public partial class UserPageType
     {
         public int Id { get; set; }
-        public string ButtonName { get; set; }
+        public int? PageId { get; set; }
+        public int? UserTypeId { get; set; }
         public int? Active { get; set; }
     }
 }

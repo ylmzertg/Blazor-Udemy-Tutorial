@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
+namespace MiPrimeraaplicacionusandoBlazor.Server.Models
+{
+    public partial class Author
+    {
+        public int Id { get; set; }
+        public string FullName { get; set; }
+        public string FatherName { get; set; }
+        public string MotherName { get; set; }
+        public int? SexTypeId { get; set; }
+        public int? CountryId { get; set; }
+        public string Description { get; set; }
+        public int? Active { get; set; }
+    }
+}

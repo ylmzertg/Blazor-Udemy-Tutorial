@@ -5,10 +5,13 @@ using System.Collections.Generic;
 
 namespace MiPrimeraaplicacionusandoBlazor.Server.Models
 {
-    public partial class Button
+    public partial class User
     {
         public int Id { get; set; }
-        public string ButtonName { get; set; }
+        public string UserName { get; set; }
+        public string PasswordHash { get; set; }
+        public int? PersonId { get; set; }
         public int? Active { get; set; }
+        public int? UserTypeId { get; set; }
     }
 }
