@@ -34,11 +34,21 @@
     <input type="submit" value="Register" class="btn btn-primary" />
 </form>
 
-<ListTask listTask="listTask" />
+<ListTask listTask="listTask" onClickDelete="deleteData" />
 
 
 
 @code {
+
+    public void deleteData(string taskName)
+    {
+        foreach (var item in listTask)
+        {
+            if (item.Task == taskName)
+                listTask.Remove(item);
+        }
+    }
+
     public List<TaskCLS> listTask = new List<TaskCLS>();
     public string cboWeek;
 

@@ -2,37 +2,56 @@
 @using MiPrimeraaplicacionusandoBlazor.Shared
 
 <table class="table">
-<thead>
-    <tr>
-        <th>
-            day of week
-        </th>
-        <th>
-            Task
-        </th>
-        <th>
-            done or not
-        </th>
-        <th>
-            Tarih
-        </th>
-    </tr>
-</thead>
-<tbody>
-    @foreach (var item in listTask)
-    {
-    <tr>
-        <td>@item.DayOfWeek</td>
-        <td>@item.Task</td>
-        <td>@item.Perform</td>
-        <td>@item.TaskDate</td>
-    </tr>
-    }
-</tbody>
+    <thead>
+        <tr>
+            <th>
+                day of week
+            </th>
+            <th>
+                Task
+            </th>
+            <th>
+                done or not
+            </th>
+            <th>
+                Task Date
+            </th>
+            <th>
+                Operations
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in listTask)
+        {
+            <tr>
+                <td>@item.DayOfWeek</td>
+                <td>@item.Task</td>
+                <td>@item.Perform</td>
+                <td>@item.TaskDate</td>
+                <td>
+                    <input type="button" class="btn btn-danger" value="Delete"
+                           @onclick="@(()=>Delete(item.Task))" />
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
 
 @code {
 
     [Parameter]
-    public List<TaskCLS> listTask{ get; set; }
+    public List<TaskCLS> listTask { get; set; }
+
+    public string taskName { get; set; }
+
+    [Parameter]
+    public EventCallback<string> onClickDelete { get; set; }
+
+    public void Delete(string data)
+    {
+        taskName = data;
+        onClickDelete.InvokeAsync(data);
+    }
 }
