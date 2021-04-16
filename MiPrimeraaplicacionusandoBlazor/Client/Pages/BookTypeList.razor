@@ -1,0 +1,21 @@
+﻿@page "/bookTypeList"
+@using MiPrimeraaplicacionusandoBlazor.Shared
+@inject HttpClient http
+
+
+@{ 
+    string[] titleList = { "Book Type Id", "Book Type Name", "Description" };
+}
+
+<ListRazor titles="titleList" list="bookTypeList"/>
+
+@code {
+
+    private BookTypeCLS [] bookTypeList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        bookTypeList = await http.GetFromJsonAsync<BookTypeCLS[]>("api/BookType/GetBookTypeList");
+    }
+
+}

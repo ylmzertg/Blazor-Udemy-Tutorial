@@ -1,0 +1,39 @@
+﻿
+@if (list == null)
+{
+    <h1>No Data Avaliable</h1>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                @foreach (var item in titles)
+                {
+                    <td>@item</td>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (object obj in list)
+            {
+                <tr>
+                    @foreach (var prop in obj.GetType().GetProperties())
+                    {
+                        <td>@prop.GetValue(obj)</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    [Parameter]
+    public string[] titles { get; set; }
+
+    [Parameter]
+    public object[] list { get; set; }
+}
