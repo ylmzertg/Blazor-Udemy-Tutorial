@@ -1,0 +1,18 @@
+﻿@page "/listAuthor"
+
+@{
+    string[] cabeceras = { "Author Name ", "Gender", "Country", "Description", "Id Author" };
+}
+
+<ListRazor titles="cabeceras" list="listAuthor" />
+
+
+@code {
+
+    private AuthorCLS[] listAuthor;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listAuthor = await http.GetFromJsonAsync<AuthorCLS[]>("api/Author/listauthor");
+    }
+}

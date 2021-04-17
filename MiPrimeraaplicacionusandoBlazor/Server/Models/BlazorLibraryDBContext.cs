@@ -51,16 +51,16 @@ namespace MiPrimeraaplicacionusandoBlazor.Server.Models
 
                 entity.Property(e => e.Description).HasMaxLength(750);
 
-                entity.Property(e => e.FatherName)
+                entity.Property(e => e.Name)
                     .HasMaxLength(250)
                     .IsUnicode(false);
 
-                entity.Property(e => e.FullName)
+                entity.Property(e => e.Username)
                     .IsRequired()
                     .HasMaxLength(250)
                     .IsUnicode(false);
 
-                entity.Property(e => e.MotherName)
+                entity.Property(e => e.Surname)
                     .HasMaxLength(250)
                     .IsUnicode(false);
             });
