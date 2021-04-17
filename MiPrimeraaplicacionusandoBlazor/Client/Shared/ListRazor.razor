@@ -5,6 +5,11 @@
 }
 else
 {
+    if (permissionAdd)
+    {
+        <button class="btn btn-primary">Add</button>
+    }
+
     @if (type != "none")
     {
         @if (type == "text")
@@ -72,6 +77,10 @@ else
                 {
                     <td>@item</td>
                 }
+                @if (permissionDelete || permissionEdit)
+                {
+                    <td>Operations</td>
+                }
             </tr>
         </thead>
         <tbody>
@@ -81,6 +90,21 @@ else
                     @foreach (var prop in obj.GetType().GetProperties())
                     {
                         <td>@prop.GetValue(obj)</td>
+                    }
+                    @if (permissionDelete || permissionEdit)
+                    {
+                        <td>
+                            @if (permissionEdit)
+                            {
+                                <button class="btn btn-primary fa fa-edit"
+                                        @onclick="@(()=>Update(obj.GetType().GetProperties()[0].GetValue(obj).ToString()))"></button>
+                            }
+                            @if (permissionDelete)
+                            {
+                                <button class="btn btn-danger fa fa-trash"
+                                        @onclick="@(()=>Delete(obj.GetType().GetProperties()[0].GetValue(obj).ToString()))"></button>
+                            }
+                        </td>
                     }
                 </tr>
             }
@@ -110,11 +134,28 @@ else
     [Parameter]
     public EventCallback<string> eventQueue { get; set; }
 
+    [Parameter]
+    public EventCallback<string> eventUpdate { get; set; }
+
+    [Parameter]
+    public EventCallback<string> eventDelete { get; set; }
+
+    public void Update(string data)
+    {
+        eventUpdate.InvokeAsync(data);
+    }
+
+    public void Delete(string data)
+    {
+        eventDelete.InvokeAsync(data);
+    }
+
     public void Search()
     {
         eventQueue.InvokeAsync(value);
     }
 
+    #region DropdownProperties
     [Parameter]
     public object[] combobox { get; set; } = null;
 
@@ -123,4 +164,17 @@ else
 
     [Parameter]
     public string valueMember { get; set; } = null;
+    #endregion
+
+    #region CrudOperationPermission
+
+    [Parameter]
+    public bool permissionAdd { get; set; } = false;
+
+    [Parameter]
+    public bool permissionEdit { get; set; } = false;
+
+    [Parameter]
+    public bool permissionDelete { get; set; } = false;
+    #endregion
 }
