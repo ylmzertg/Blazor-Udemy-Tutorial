@@ -48,7 +48,19 @@ else
             }
             else
             {
-
+                <div class="mb-4">
+                    <select class="form-check form-control" @bind-value="value" @bind-value:event="oninput"
+                            @onchange="Search">
+                        <option value="">--Selected One Item--</option>
+                        @foreach (var item in combobox)
+                        {
+                            <option value="@item.GetType().GetProperty(valueMember).GetValue(item)">
+                                @item.GetType().GetProperty(displayMember).GetValue(item)
+                            </option>
+                        }
+                    </select><br />
+                    <input type="button" value="Search" class="btn btn-primary" @onclick="Search" />
+                </div>
             }
         }
     }
