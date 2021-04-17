@@ -102,7 +102,9 @@ else
                             @if (permissionDelete)
                             {
                                 <button class="btn btn-danger fa fa-trash"
-                                        @onclick="@(()=>Delete(obj.GetType().GetProperties()[0].GetValue(obj).ToString()))"></button>
+                                        data-toggle="modal" data-target=".bd-example-modal-sm"
+                                        @onclick="@(()=>Delete(obj.GetType().GetProperties()[4].GetValue(obj).ToString()))"></button>
+                                        <MessageConfirmation id="@valueDelete"/>
                             }
                         </td>
                     }
@@ -114,6 +116,9 @@ else
 
 
 @code {
+
+    public string valueDelete { get; set; }
+
     public string value { get; set; }
 
     [Parameter]
@@ -147,6 +152,7 @@ else
 
     public void Delete(string data)
     {
+        valueDelete = data;
         eventDelete.InvokeAsync(data);
     }
 
