@@ -7,7 +7,9 @@ else
 {
     if (permissionAdd)
     {
-        <button class="btn btn-primary">Add</button>
+        <NavLink href="@routeAdded">
+            <button class="btn btn-primary">Add</button>
+        </NavLink>
     }
 
     @if (type != "none")
@@ -96,15 +98,17 @@ else
                         <td>
                             @if (permissionEdit)
                             {
-                                <button class="btn btn-primary fa fa-edit"
-                                        @onclick="@(()=>Update(obj.GetType().GetProperties()[0].GetValue(obj).ToString()))"></button>
+                                <NavLink href="@routeEdit">
+                                    <button class="btn btn-primary fa fa-edit"
+                                            @onclick="@(()=>Update(obj.GetType().GetProperties()[0].GetValue(obj).ToString()))"></button>
+                                </NavLink>
                             }
                             @if (permissionDelete)
                             {
                                 <button class="btn btn-danger fa fa-trash"
                                         data-toggle="modal" data-target=".bd-example-modal-sm"
                                         @onclick="@(()=>Delete(@obj.GetType().GetProperties()[0].GetValue(@obj).ToString()))"></button>
-                                        <MessageConfirmation id="@valueDelete" eventDelete="DeleteData"/>
+                                <MessageConfirmation id="@valueDelete" eventDelete="DeleteData" />
                             }
                         </td>
                     }
@@ -120,6 +124,12 @@ else
     public string valueDelete { get; set; }
 
     public string value { get; set; }
+
+    [Parameter]
+    public string routeAdded { get; set; } = "";
+
+    [Parameter]
+    public string routeEdit { get; set; } = "";
 
     [Parameter]
     public string[] titles { get; set; }
