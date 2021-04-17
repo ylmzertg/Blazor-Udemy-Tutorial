@@ -9,13 +9,25 @@ else
     {
         @if (type == "text")
         {
-            <div class="mb-4" >
-                <label>@label</label>
-                <input type="text" @bind-value="value" @bind-value:event="oninput"
-                       class="form-check form-control" />
-                <br />
-                <button class="btn btn-primary" @onclick="Search">Search</button>
-            </div>
+            <label>@label</label>
+
+            @if (button)
+            {
+                <div class="mb-4">
+                    <input type="text" @bind-value="value" @bind-value:event="oninput"
+                           class="form-check form-control" />
+                    <br />
+                    <button class="btn btn-primary" @onclick="Search">Search</button>
+                </div>
+            }
+            else
+            {
+                <div class="mb-4">
+                    <input type="text" @bind-value="value" @bind-value:event="oninput"
+                           class="form-check form-control" @onkeyup="Search"/>
+                    <br />
+                </div>
+            }
         }
     }
 
@@ -57,6 +69,9 @@ else
 
     [Parameter]
     public string label { get; set; } = "";
+
+    [Parameter]
+    public bool button { get; set; }
 
     [Parameter]
     public EventCallback<string> eventQueue { get; set; }
