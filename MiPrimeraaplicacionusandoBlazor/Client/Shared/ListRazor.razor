@@ -24,9 +24,31 @@ else
             {
                 <div class="mb-4">
                     <input type="text" @bind-value="value" @bind-value:event="oninput"
-                           class="form-check form-control" @onkeyup="Search"/>
+                           class="form-check form-control" @onkeyup="Search" />
                     <br />
                 </div>
+            }
+        }
+        else if (type == "combobox")
+        {
+            if (button)
+            {
+                <div class="mb-4">
+                    <select class="form-check form-control" @bind-value="value" @bind-value:event="oninput">
+                        <option value="">--Selected One Item--</option>
+                        @foreach (var item in combobox)
+                        {
+                            <option value="@item.GetType().GetProperty(valueMember).GetValue(item)">
+                                @item.GetType().GetProperty(displayMember).GetValue(item)
+                            </option>
+                        }
+                    </select><br />
+                    <input type="button" value="Search" class="btn btn-primary" @onclick="Search" />
+                </div>
+            }
+            else
+            {
+
             }
         }
     }
@@ -81,4 +103,12 @@ else
         eventQueue.InvokeAsync(value);
     }
 
+    [Parameter]
+    public object[] combobox { get; set; } = null;
+
+    [Parameter]
+    public string displayMember { get; set; } = null;
+
+    [Parameter]
+    public string valueMember { get; set; } = null;
 }

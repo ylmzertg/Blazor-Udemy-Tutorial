@@ -4,15 +4,38 @@
     string[] cabeceras = { "Author Name ", "Gender", "Country", "Description", "Id Author" };
 }
 
-<ListRazor titles="cabeceras" list="listAuthor" />
+<ListRazor titles="cabeceras"
+    list=listAuthor
+    type="combobox"
+    combobox=listCountry
+    displayMember="CountryName"
+    valueMember="Id"
+    button="true"
+    eventQueue="Search" />
+
+@*<ListRazor titles="cabeceras"
+           list=listAuthor
+           type="text"
+           displayMember="CountryName"
+           valueMember="Id"
+           button="true"
+           eventQueue="Search" />*@
 
 
 @code {
 
     private AuthorCLS[] listAuthor;
+    private CountryCLS[] listCountry;
 
     protected override async Task OnInitializedAsync()
     {
         listAuthor = await http.GetFromJsonAsync<AuthorCLS[]>("api/Author/listauthor");
+        listCountry = await http.GetFromJsonAsync<CountryCLS[]>("api/Author/listcountry");
+    }
+
+    public async Task Search(string data)
+    {
+        listAuthor = await http.GetFromJsonAsync<AuthorCLS[]>("api/Author/filterauthor/" + data);
+
     }
 }
