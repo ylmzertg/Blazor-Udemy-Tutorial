@@ -5,14 +5,15 @@
 }
 
 <ListRazor titles="cabeceras"
-    list=listAuthor
-    type="combobox"
-    combobox=listCountry
-    displayMember="CountryName"
-    valueMember="Id"
-    button="false"
-    eventQueue="Search" 
-    permissionDelete="true"/>
+           list=listAuthor
+           type="combobox"
+           combobox=listCountry
+           displayMember="CountryName"
+           valueMember="Id"
+           button="false"
+           eventQueue="Search"
+           permissionDelete="true"
+           eventDelete="DeleteData" />
 
 
 @code {
@@ -24,6 +25,13 @@
     {
         listAuthor = await http.GetFromJsonAsync<AuthorCLS[]>("api/Author/listauthor");
         listCountry = await http.GetFromJsonAsync<CountryCLS[]>("api/Author/listcountry");
+    }
+
+    public async Task DeleteData(string data)
+    {
+        int result = await http.GetFromJsonAsync<int>("api/Author/deletedata/" + data);
+        if (result == 1)
+            listAuthor = await http.GetFromJsonAsync<AuthorCLS[]>("api/Author/listauthor");
     }
 
     public async Task Search(string data)

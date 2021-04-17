@@ -13,6 +13,27 @@ namespace MiPrimeraaplicacionusandoBlazor.Server.Controllers
     [ApiController]
     public class AuthorController : Controller
     {
+
+        [HttpGet("deletedata/{data?}")]
+        public int DeleteData(string data)
+        {
+            int changeRow = 0;
+            try
+            {
+                using (var db = new BlazorLibraryDBContext())
+                {
+                    Author aut = db.Authors.Where(p => p.Id == Convert.ToInt32(data)).First();
+                    aut.Active = 0;
+                    db.SaveChanges();
+                    return changeRow = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                return changeRow = 0;
+            }
+        }
+
         [HttpGet("listauthor")]
         public List<AuthorCLS> Index()
         {

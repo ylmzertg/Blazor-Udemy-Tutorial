@@ -103,8 +103,8 @@ else
                             {
                                 <button class="btn btn-danger fa fa-trash"
                                         data-toggle="modal" data-target=".bd-example-modal-sm"
-                                        @onclick="@(()=>Delete(obj.GetType().GetProperties()[4].GetValue(obj).ToString()))"></button>
-                                        <MessageConfirmation id="@valueDelete"/>
+                                        @onclick="@(()=>Delete(@obj.GetType().GetProperties()[4].GetValue(@obj).ToString()))"></button>
+                                        <MessageConfirmation id="@valueDelete" eventDelete="DeleteData"/>
                             }
                         </td>
                     }
@@ -153,6 +153,11 @@ else
     public void Delete(string data)
     {
         valueDelete = data;
+        //eventDelete.InvokeAsync(data);
+    }
+
+    public void DeleteData(string data)
+    {
         eventDelete.InvokeAsync(data);
     }
 
