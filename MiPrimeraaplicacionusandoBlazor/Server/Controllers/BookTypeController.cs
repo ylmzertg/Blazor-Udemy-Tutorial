@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiPrimeraaplicacionusandoBlazor.Server.Models;
 using MiPrimeraaplicacionusandoBlazor.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,6 +33,26 @@ namespace MiPrimeraaplicacionusandoBlazor.Server.Controllers
                             }).ToList();
             }
             return bookList;
+        }
+
+        [HttpGet("deletedata/{data?}")]
+        public int DeleteData(string data)
+        {
+            int changeRow = 0;
+            try
+            {
+                using (var db = new BlazorLibraryDBContext())
+                {
+                    BookType book = db.BookTypes.Where(p => p.Id == Convert.ToInt32(data)).First();
+                    book.Active = 0;
+                    db.SaveChanges();
+                    return changeRow = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                return changeRow = 0;
+            }
         }
 
         [HttpGet("Filter/{data?}")]

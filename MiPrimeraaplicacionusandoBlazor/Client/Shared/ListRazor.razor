@@ -103,7 +103,7 @@ else
                             {
                                 <button class="btn btn-danger fa fa-trash"
                                         data-toggle="modal" data-target=".bd-example-modal-sm"
-                                        @onclick="@(()=>Delete(@obj.GetType().GetProperties()[4].GetValue(@obj).ToString()))"></button>
+                                        @onclick="@(()=>Delete(@obj.GetType().GetProperties()[0].GetValue(@obj).ToString()))"></button>
                                         <MessageConfirmation id="@valueDelete" eventDelete="DeleteData"/>
                             }
                         </td>

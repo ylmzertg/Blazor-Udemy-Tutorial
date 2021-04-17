@@ -3,20 +3,21 @@
 @inject HttpClient http
 
 
-@{ 
+@{
     string[] titleList = { "Book Type Id", "Book Type Name", "Description" };
 }
 
-<ListRazor titles="titleList" 
+<ListRazor titles="titleList"
            list="bookTypeList"
            type="text"
            label="Enter Book Type"
-           eventQueue="SearchBookType" 
-           button="false"/>
+           eventQueue="SearchBookType"
+           button="false"
+           permissionDelete="true" eventDelete="DeleteBookType" />
 
 @code {
 
-    private BookTypeCLS [] bookTypeList;
+    private BookTypeCLS[] bookTypeList;
 
     protected override async Task OnInitializedAsync()
     {
@@ -25,7 +26,15 @@
 
     public async Task SearchBookType(string data)
     {
-        bookTypeList = await http.GetFromJsonAsync<BookTypeCLS[]>("api/BookType/Filter/"+ data);
+        bookTypeList = await http.GetFromJsonAsync<BookTypeCLS[]>("api/BookType/Filter/" + data);
 
     }
+
+    public async Task DeleteBookType(string data)
+    {
+        int result = await http.GetFromJsonAsync<int>("api/BookType/deletedata/" + data);
+        if (result > 0)
+            bookTypeList = await http.GetFromJsonAsync<BookTypeCLS[]>("api/BookType/GetBookTypeList");
+    }
+
 }
